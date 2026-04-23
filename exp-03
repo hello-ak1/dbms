@@ -1,0 +1,31 @@
+-- Create table (correct datatype) 
+CREATE TABLE employee( 
+e_id NUMBER(10), 
+e_name VARCHAR2(20), 
+address VARCHAR2(20), 
+email_id VARCHAR2(20) 
+); -- Add column 
+ALTER TABLE employee  
+ADD salary NUMBER(10,2) NOT NULL; -- Create table from another table 
+CREATE TABLE employee1 AS  
+SELECT * FROM employee; -- Create table with selected columns 
+CREATE TABLE employee2 AS  
+SELECT e_id, e_name FROM employee; -- Add column 
+ALTER TABLE employee2  
+ADD salary NUMBER(12); -- Drop column 
+ALTER TABLE employee2  
+DROP COLUMN e_name; 
+-- Modify column 
+ALTER TABLE employee2  
+MODIFY e_id NUMBER(20); -- Drop table 
+DROP TABLE employee2; -- Rename table 
+RENAME employee1 TO emp1; -- Remove all records 
+TRUNCATE TABLE employee; -- Add primary key with constraint name 
+ALTER TABLE emp1  
+ADD CONSTRAINT pri_k PRIMARY KEY (e_id); -- Drop constraint 
+ALTER TABLE emp1  
+DROP CONSTRAINT pri_k; -- Add primary key (without name) 
+ALTER TABLE emp1  
+ADD PRIMARY KEY (e_id); -- Correct way to drop primary key 
+ALTER TABLE emp1  
+DROP PRIMARY KEY; 
