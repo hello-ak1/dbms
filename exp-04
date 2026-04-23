@@ -1,0 +1,92 @@
+SQL> create table MI(jno number(5), pname varchar2(10)); 
+Table created. 
+SQL> insert into MI values(45, 'rohit'); 
+1 row created. 
+SQL> insert into MI values('&jno', '&pname'); 
+Enter value for jno: 93 
+Enter value for pname: bumrah 
+old 1: insert into MI values('&jno', '&pname') 
+new 1: insert into MI values('93', 'bumrah') 
+1 row created. 
+SQL> insert into MI values('&jno', '&pname'); 
+Enter value for jno: 63 
+Enter value for pname: surya 
+old 1: insert into MI values('&jno', '&pname') 
+new 1: insert into MI values('63', 'surya') 
+1 row created. 
+SQL> desc MI 
+Name Null? Type ----------------------------------------- -------- ---------------------------- 
+JNO NUMBER(5) 
+PNAME VARCHAR2(10) 
+SQL> select *from MI; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+93 bumrah 
+63 surya 
+SQL> select *from MI where jno<60; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+SQL> select *from MI where jno between 60 and 95; 
+JNO PNAME ---------- ---------- 
+93 bumrah 
+63 surya 
+SQL> select *from MI where pname like 'r%'; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+SQL> select *from MI where pname like '%h'; 
+JNO PNAME ---------- ---------- 
+93 bumrah 
+SQL> insert into MI values('&jno', '&pname'); 
+Enter value for jno: 10 
+Enter value for pname: hardik 
+old 1: insert into MI values('&jno', '&pname') 
+new 1: insert into MI values('10', 'hardik') 
+1 row created. 
+SQL> insert into MI values('&jno', '&pname'); 
+Enter value for jno: 20 
+Enter value for pname: tilak 
+old 1: insert into MI values('&jno', '&pname') 
+new 1: insert into MI values('20', 'tilak') 
+1 row created. 
+SQL> select *from MI; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+93 bumrah 
+63 surya 
+10 hardik 
+20 tilak 
+SQL> update MI set jno=33 where pname='hardik'; 
+1 row updated. 
+SQL> update MI set jno=72 where pname='tilak'; 
+1 row updated. 
+SQL> select *from MI; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+93 bumrah 
+63 surya 
+33 hardik 
+72 tilak 
+SQL> delete from MI where jno=33; 
+1 row deleted. 
+SQL> select *from MI; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+93 bumrah 
+63 surya 
+72 tilak 
+SQL> select *from MI where jno in(40,65); 
+no rows selected 
+SQL> select *from MI where jno>=65; 
+JNO PNAME ---------- ---------- 
+93 bumrah 
+72 tilak 
+SQL> select *from MI where jno<=50; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+SQL> delete from MI where jno=72; 
+1 row deleted. 
+SQL> select *from MI; 
+JNO PNAME ---------- ---------- 
+45 rohit 
+93 bumrah 
+63 surya
