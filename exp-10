@@ -1,0 +1,79 @@
+SQL> create table studinfo12(sid number(5) NOT NULL, name varchar(10)); 
+Table created. 
+SQL> desc studinfo12; 
+Name Null? Type ----------------------------------------- -------- ---------------------------- 
+SID NOT NULL NUMBER(5) 
+NAME VARCHAR2(10) 
+SQL> insert into studinfo12 values('&sid', '&name'); 
+Enter value for sid: 1 
+Enter value for name: ak 
+old 1: insert into studinfo12 values('&sid', '&name') 
+new 1: insert into studinfo12 values('1', 'ak') 
+1 row created. 
+SQL> insert into studinfo12 values('&sid', '&name'); 
+Enter value for sid: 
+Enter value for name: varsha 
+old 1: insert into studinfo12 values('&sid', '&name') 
+new 1: insert into studinfo12 values('', 'varsha') 
+insert into studinfo12 values('', 'varsha') 
+* 
+ERROR at line 1: 
+ORA-01400: cannot insert NULL into ("SYSTEM"."STUDINFO12"."SID") 
+SQL> create table studinfo11(sid number(5) UNIQUE, name varchar(10)); 
+Table created. 
+SQL> desc studinfo11; 
+Name Null? Type ----------------------------------------- -------- ---------------------------- 
+SID NUMBER(5) 
+NAME VARCHAR2(10) 
+SQL> insert into studinfo11 values('&sid', '&name'); 
+Enter value for sid: 1 
+Enter value for name: ak 
+old 1: insert into studinfo11 values('&sid', '&name') 
+new 1: insert into studinfo11 values('1', 'ak') 
+1 row created. 
+SQL> insert into studinfo11 values('&sid', '&name'); 
+Enter value for sid: 1 
+Enter value for name: nidhi 
+old 1: insert into studinfo11 values('&sid', '&name') 
+new 1: insert into studinfo11 values('1', 'nidhi') 
+insert into studinfo11 values('1', 'nidhi') 
+* 
+ERROR at line 1: 
+ORA-00001: unique constraint (SYSTEM.SYS_C007005) violated 
+SQL> create table studinfo13(sid number(5), name varchar(10), dept varchar(5), CHECK(dept 
+IN('ds', 'it', 'cs'))); 
+Table created. 
+SQL> insert into studinfo13 values('&sid', '&name', '&dept'); 
+Enter value for sid: 1 
+Enter value for name: ak 
+Enter value for dept: ds 
+old 1: insert into studinfo13 values('&sid', '&name', '&dept') 
+new 1: insert into studinfo13 values('1', 'ak', 'ds') 
+1 row created. 
+SQL> 2 
+SP2-0226: Invalid line number 
+SQL> insert into studinfo13 values('&sid', '&name', '&dept'); 
+Enter value for sid: 2 
+Enter value for name: varsha 
+Enter value for dept: aiml 
+old 1: insert into studinfo13 values('&sid', '&name', '&dept') 
+new 1: insert into studinfo13 values('2', 'varsha', 'aiml') 
+insert into studinfo13 values('2', 'varsha', 'aiml') 
+* 
+ERROR at line 1: 
+ORA-02290: check constraint (SYSTEM.SYS_C007006) violated 
+SQL> create table faculty(fid number(5) primary key, fname varchar(10)); 
+Table created. 
+SQL> desc faculty; 
+Name Null? Type ----------------------------------------- -------- ---------------------------- 
+FID NOT NULL NUMBER(5) 
+FNAME VARCHAR2(10) 
+SQL> create table subject10(subid number(5) primary key, subname varchar(10), fid 
+number(5), 
+foreign key(fid) references faculty); 
+Table created. 
+SQL> desc subject10; 
+Name Null? Type ----------------------------------------- -------- ---------------------------- 
+SUBID NOT NULL NUMBER(5) 
+SUBNAME VARCHAR2(10) 
+FID NUMBER(5)
