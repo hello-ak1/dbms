@@ -1,0 +1,168 @@
+SQL> connect 
+Enter user-name: system 
+Enter password: 
+Connected. 
+SQL> create table dsem1(eid number (20), ename varchar2 (30), sal number (30), dno 
+number (20)); 
+Table created. 
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 2 
+Enter value for ename: Varun 
+Enter value for sal: 50000 
+Enter value for dno: 6 
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into dsem1 values ('2', 'Varun', '50000', '6') 
+1 row created. 
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 9 
+Enter value for ename: Anupam 
+Enter value for sal: 55000 
+Enter value for dno: 7 
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into dsem1 values ('9', 'Anupam', '55000', '7') 
+1 row created. 
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 13 
+Enter value for ename: Akanksha 
+Enter value for sal: 50000 
+Enter value for dno: 18 
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into dsem1 values ('13', 'Akanksha', '50000', '18') 
+1 row created. 
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 17 
+Enter value for ename: Om 
+Enter value for sal: 70000 
+Enter value for dno: 45 
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into dsem1 values ('17', 'Om', '70000', '45') 
+1 row created. 
+ 
+ 
+SQL> select *from dsem1; 
+ 
+       EID ENAME                                 SAL        DNO ---------- ------------------------------ ---------- ---------- 
+         2 Varun                               50000          6 
+         9 Anupam                              55000          7 
+        13 Akanksha                            50000         18 
+        17 Om                                  70000         45 
+ 
+SQL> create table csem1(eid number (20), ename varchar2 (30), sal number (30), dno 
+number (20)); 
+ 
+Table created. 
+ 
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 1 
+Enter value for ename: Rohit S 
+Enter value for sal: 200000 
+Enter value for dno: 45 
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into csem1 values ('1', 'Rohit S', '200000', '45') 
+ 
+1 row created. 
+ 
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 6 
+Enter value for ename: Virat K 
+Enter value for sal: 15000 
+Enter value for dno: 18 
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into csem1 values ('6', 'Virat K', '15000', '18') 
+1 row created. 
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 8 
+Enter value for ename: Thala 
+Enter value for sal: 200000 
+Enter value for dno: 7 
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into csem1 values ('8', 'Thala', '200000', '7') 
+1 row created. 
+SQL> select sum(sal) from csem1; 
+SUM(SAL) ---------- 
+415000 
+SQL> select avg(sal) from dsem1; 
+AVG(SAL) ---------- 
+     56250 
+ 
+SQL> select count(ename) from dsem1; 
+ 
+COUNT(ENAME) ------------ 
+           4 
+ 
+SQL> select *from dsem1; 
+ 
+       EID ENAME                                 SAL        DNO ---------- ------------------------------ ---------- ---------- 
+         2 Varun                               50000          6 
+         9 Anupam                              55000          7 
+        13 Akanksha                            50000         18 
+        17 Om                                  70000         45 
+ 
+SQL> select *from csem1; 
+ 
+       EID ENAME                                 SAL        DNO ---------- ------------------------------ ---------- ---------- 
+         1 Rohit S                            200000         45 
+         6 Virat K                             15000         18 
+         8 Thala                              200000          7 
+ 
+SQL> select dno from dsem1 union select dno from csem1; 
+ 
+       DNO 
+---------- 
+         6 
+         7 
+        18 
+        45 
+ 
+SQL> select dno from csem1 union select dno from dsem1; 
+ 
+       DNO ---------- 
+         6 
+         7 
+        18 
+        45 
+ 
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno'); 
+Enter value for eid: 15 
+Enter value for ename: Tilak 
+Enter value for sal: 15000 
+Enter value for dno: 33 
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno') 
+new   1: insert into csem1 values ('15', 'Tilak', '15000', '33') 
+ 
+1 row created. 
+ 
+SQL> select dno from csem1 union select dno from dsem1; 
+ 
+       DNO 
+---------- 
+         6 
+         7 
+        18 
+        33 
+        45 
+ 
+SQL> select dno from csem1 union all select dno from dsem1; 
+ 
+       DNO ---------- 
+        45 
+        18 
+         7 
+        33 
+         6 
+         7 
+        18 
+        45 
+ 
+8 rows selected. 
+ 
+SQL> select dno from csem1 intersect select dno from dsem1; 
+ 
+       DNO ---------- 
+         7 
+        18 
+45 
+SQL> select dno from csem1 minus select dno from dsem1; 
+DNO ---------- 
+33 
+SQL> spool off
