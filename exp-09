@@ -1,0 +1,71 @@
+SQL> create view stud_v1 as select sid, sname from student; 
+View created. SQL> select *from stud_v1; 
+SID SNAME ---------- ---------- 20 Ananya 
+30 Mayank 
+40 Bharati 
+SQL> create or replace view stud_v1 as select sid, sname, dept from student; 
+View created. SQL> replace view stud_v2 as select sid, sname, dept from student; 
+SQL> select *from stud_v1; 
+SID SNAME DEPT ---------- ---------- -------------------- 20 Ananya 10000 
+30 Mayank 40000 
+40 Bharati 50000 
+SQL> update stud_v1 set sname='Akanksha' where sid=40; 
+1 row updated. SQL> select *from stud_v1; 
+SID SNAME DEPT ---------- ---------- -------------------- 20 Ananya 10000 
+30 Mayank 40000 
+40 Akanksha 50000 
+SQL> select *from student; 
+SID SNAME DEPT ---------- ---------- -------------------- 20 Ananya 10000 
+30 Mayank 40000 
+40 Akanksha 50000 
+SQL> insert into stud_v1 values(35, 'Dhruv', 'FINANVE'); 
+1 row created. SQL> select *from stud_v1; 
+SID SNAME DEPT 
+---------- ---------- -------------------- 35 Dhruv FINANVE 
+20 Ananya 10000 
+30 Mayank 40000 
+40 Akanksha 50000 
+SQL> select *from student; 
+SID SNAME DEPT ---------- ---------- -------------------- 35 Dhruv FINANVE 
+20 Ananya 10000 
+30 Mayank 40000 
+40 Akanksha 50000 
+SQL> create table lib(sid number(10), subject varchar2(10), fine number(10)); 
+Table created. SQL> insert into lib values(35, 'python', 200); 
+1 row created. SQL> insert into lib values(25, 'c++', 100); 
+1 row created. SQL> insert into lib values(35, 'c++', 100); 
+1 row created. SQL> insert into lib values(45, 'java', 100); 
+1 row created. SQL> insert into lib values(25, 'dbms', 100); 
+1 row created. SQL> select *from lib; 
+SID SUBJECT FINE ---------- ---------- ---------- 35 python 200 
+25 c++ 100 
+35 c++ 100 
+45 java 100 
+25 dbms 100 
+SQL> create or replace view lib1 as select sid, fine from lib; 
+View created. SQL> select *from lib1; 
+SID FINE ---------- ---------- 35 200 
+25 100 
+35 100 
+45 100 
+25 100 
+SQL> create or replace view lib2 as select sid, sum(fine) total_fine from lib group by sid; 
+View created. SQL> select *from lib2; 
+SID TOTAL_FINE ---------- ---------- 25 200 
+35 300 
+45 100 
+SQL> create or replace trigger lib_t1 
+2 before update on lib 
+3 begin 
+4 dbms_output.put_line('library record updated'); 
+5 end; 
+6 / 
+Trigger created. SQL> update lib 
+2 set fine=fine*2 
+3 where fine<200; 
+4 rows updated. SQL> select *from lib; 
+SID SUBJECT FINE ---------- ---------- ---------- 35 python 200 
+25 c++ 200 
+35 c++ 200 
+45 java 200 
+25 dbms 200 
