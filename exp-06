@@ -1,0 +1,129 @@
+Implementation of nested queries , string operations, group by clause 
+in database. 
+SQL> connect 
+Enter user-name: system 
+Enter password: 
+Connected. 
+SQL> create table dssem1(eid number(10), ename varchar2(10), sal number(10), dno 
+number(10), post varchar2(10)); 
+Table created. 
+SQL> select *from dssem1; 
+no rows selected 
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post'); 
+Enter value for eid: 10 
+Enter value for ename: rohit 
+Enter value for sal: 200000 
+Enter value for dno: 15 
+Enter value for post: ceo 
+old 1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post') 
+new 1: insert into dssem1 values('10', 'rohit', '200000', '15', 'ceo') 
+1 row created. 
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post'); 
+Enter value for eid: 25 
+Enter value for ename: bumrah 
+Enter value for sal: 100000 
+Enter value for dno: 20 
+Enter value for post: coo 
+old 1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post') 
+new 1: insert into dssem1 values('25', 'bumrah', '100000', '20', 'coo') 
+1 row created. 
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post'); 
+Enter value for eid: 20 
+Enter value for ename: surya 
+Enter value for sal: 150000 
+Enter value for dno: 17 
+Enter value for post: cap 
+old 1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post') 
+new 1: insert into dssem1 values('20', 'surya', '150000', '17', 'cap') 
+1 row created. 
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post'); 
+Enter value for eid: 11 
+Enter value for ename: hardik 
+Enter value for sal: 120000 
+Enter value for dno: 17 
+Enter value for post: cap 
+old 1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post') 
+new 1: insert into dssem1 values('11', 'hardik', '120000', '17', 'cap') 
+1 row created. 
+SQL> select *from dssem1; 
+EID ENAME SAL DNO POST ---------- ---------- ---------- ---------- ---------- 
+10 rohit 200000 15 ceo 
+25 bumrah 100000 20 coo 
+20 surya 150000 17 cap 
+11 hardik 120000 17 cap 
+SQL> select *from dssem1 where dno=(select dno from dssem1 where ename='hardik'); 
+EID ENAME SAL DNO POST ---------- ---------- ---------- ---------- ---------- 
+20 surya 150000 17 cap 
+11 hardik 120000 17 cap 
+SQL> select *from dssem1 where sal>(select sal from dssem1 where ename='surya'); 
+EID ENAME SAL DNO POST ---------- ---------- ---------- ---------- ---------- 
+10 rohit 200000 15 ceo 
+SQL> select dno, sum(sal) from dssem1 group by dno having dno=17; 
+DNO SUM(SAL) ---------- ---------- 
+17 270000 
+SQL> select dno, sum(sal) from dssem1 group by dno having dno in(15,20); 
+DNO SUM(SAL) ---------- ---------- 
+20 100000 
+15 200000 
+SQL> select post, max(sal) from dssem1 group by post; 
+POST MAX(SAL) ---------- ---------- 
+coo 100000 
+ceo 200000 
+cap 150000 
+SQL> select lower(ename) from dssem1; 
+LOWER(ENAM ---------- 
+rohit 
+bumrah 
+surya 
+hardik 
+SQL> select upper(ename) from dssem1; 
+UPPER(ENAM ---------- 
+ROHIT 
+BUMRAH 
+SURYA 
+HARDIK 
+SQL> select upper('captain') from dual; 
+UPPER(' ------- 
+CAPTAIN 
+SQL> select lower('captain') from dual; 
+LOWER(' ------- 
+captain 
+SQL> select initcap('captain') from dual; 
+INITCAP ------- 
+Captain 
+SQL> select initcap(ename) from dssem1; 
+INITCAP(EN ---------- 
+Rohit 
+Bumrah 
+Surya 
+Hardik 
+SQL> select lpad('kavita', 14, '&') from dual; 
+LPAD('KAVITA', -------------- 
+&&&&&&&&kavita 
+SQL> select rpad('kavita', 14, '&') from dual; 
+RPAD('KAVITA', -------------- 
+kavita&&&&&&&& 
+SQL> select ltrim('kavita', 'k') from dual; 
+LTRIM ----- 
+avita 
+SQL> select rtrim('kavita', 'a') from dual; 
+RTRIM ----- 
+kavit 
+SQL> select translate('rsaggarwal', 'r', 'd') from dual; 
+TRANSLATE( ---------- 
+dsaggadwal 
+SQL> select replace('jack and jue', 'j', 'bl') from dual; 
+REPLACE('JACKA -------------- 
+black and blue 
+SQL> select length('jack and jill') from dual; 
+LENGTH('JACKANDJILL') --------------------- 
+13 
+SQL> select length(ename) from dssem1; 
+LENGTH(ENAME) ------------- 
+5 
+6 
+5 
+6 
+SQL> select substr('jackandjill', 5,4) from dual; 
+SUBS ---- 
+Andj
